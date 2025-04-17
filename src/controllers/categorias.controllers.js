@@ -26,7 +26,7 @@ const postCategorias = async(req,res) =>{
 }
 const getCategory= async (req, res)=>{
     try{
-        console.log(req.param);
+        console.log(req.params);
         const {id} = req.params
         const conecction = await getConection();
         const result = await conecction.query("SELECT CategoriaID, CategoriaNombre,  Descripcion, Imagen from categorias WHERE CategoriaID = ? ",id)
@@ -36,12 +36,26 @@ const getCategory= async (req, res)=>{
     }
 
 } 
+const updateCategorias = async(req,res) =>{
+    try {
+        const {id} =req.params
+        const {CategoriaNombre,Descripcion,Imagen } = req.body;
+        const category = {CategoriaNombre,Descripcion,Imagen }
+        const conecction = await getConection();
+        const result = await conecction.query("UPDATE categorias SET ? WHERE CategoriaID = ? ", [category,id])
+        res.json(result)
+    } catch (error) {
+        console.error("Error 500");
+    }
+}
 
 export const methodHTTP = {
     getCategorias,
     postCategorias,
-    getCategory
+    getCategory,
+    updateCategorias
 };
+
 
 
 
