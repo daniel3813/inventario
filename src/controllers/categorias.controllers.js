@@ -1,14 +1,15 @@
-import getConection from "../db/database.js"
+import getConection from "./../db/database.js"
 const getCategorias = async (req, res)=>{
     try{
         const conecction = await getConection();
-        const result = await conecction.query("SELECT CategoriaID, CategoriaNombre,	Descripcion, Imagen    from categorias")
+        const result = await conecction.query("SELECT CategoriaID, CategoriaNombre,  Descripcion, Imagen from categorias")
         res.json(result);
     }catch{
         console.error("Error 500");
     }
 
-}   
+}  
+
 const postCategorias = async(req,res) =>{
     try {
         const {CategoriaNombre,Descripcion,Imagen } = req.body;
@@ -24,6 +25,7 @@ const postCategorias = async(req,res) =>{
         console.error("Error 500");
     }
 }
+
 const getCategory= async (req, res)=>{
     try{
         console.log(req.params);
@@ -36,6 +38,7 @@ const getCategory= async (req, res)=>{
     }
 
 } 
+
 const updateCategorias = async(req,res) =>{
     try {
         const {id} =req.params
@@ -61,14 +64,10 @@ const deleteCategory= async (req, res)=>{
 
 } 
 
-export const methodHTTP = {
+export const methodHTTP ={
     getCategorias,
     postCategorias,
     getCategory,
     updateCategorias,
     deleteCategory
-};
-
-
-
-
+}
